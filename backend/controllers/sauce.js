@@ -2,7 +2,7 @@ const Sauce = require('../models/sauce');           //On récupére le modèl ty
 const mongoose = require('mongoose');               //mongoose pour interagir avec la base de donnée
 
 
-exports.createSauce = (req, res, next) => {
+exports.createSauce = (req, res, next) => { 
     const sauceObject = JSON.parse(req.body.sauce);
     const sauce = new Sauce({
         ...sauceObject,
@@ -54,14 +54,13 @@ exports.modifySauce = (req, res, next) => {
     .catch((error) => { res.status(400).json({error: error });})
     .catch((error) => { res.status(500).json({error: error});});
 };
-        
-          
+               
 exports.likeCtrl = (req,res,next) => {
-  const userConcernate = req.body.userId;
+  const userCible = req.body.userId;
   if(req.body.like == 1){
     Sauce.findOne({_id: req.params.id}) 
     .then(sauce => {
-      sauce.usersLiked.push(userConcernate);
+      sauce.usersLiked.push(userCible);
       sauce.likes += 1;
       sauce.save();  
       res.status(200).json({message : 'Sauce likée'})
@@ -71,14 +70,14 @@ exports.likeCtrl = (req,res,next) => {
   } else if (req.body.like == 0 ){
     Sauce.findOne({_id: req.params.id}) 
     .then(sauce => { 
-              const index = sauce.usersLiked.indexOf(userConcernate);            
-              if(sauce.usersLiked.indexOf(userConcernate)>-1)
+              const index = sauce.usersLiked.indexOf(userCible);            
+              if(sauce.usersLiked.indexOf(userCible)>-1)
               {
                 sauce.usersLiked.splice(index,1);                               
                                                                                 
                 sauce.likes -= 1;    
                                                       }      
-            else if(sauce.usersDisliked.indexOf(userConcernate)>-1){         
+            else if(sauce.usersDisliked.indexOf(userCible)>-1){         
               sauce.usersDisliked.splice(index,1); 
               sauce.dislikes -= 1;
             }                                                                     
@@ -93,7 +92,7 @@ exports.likeCtrl = (req,res,next) => {
   else if(req.body.like == -1){
       Sauce.findOne({_id: req.params.id}) 
     .then(sauce => {
-      sauce.usersDisliked.push(userConcernate);
+      sauce.usersDisliked.push(userCible);
       sauce.dislikes += 1;
       sauce.save();
       res.status(200).json({message : 'Sauce dislikée'})
@@ -102,8 +101,7 @@ exports.likeCtrl = (req,res,next) => {
     .catch((error) => { res.status(500).json({error: error});});
     }
 };
-    
-    
+     
 exports.deleteSauce = (req, res, next) => {
     Sauce.deleteOne({_id: req.params.id}).then(
       () => {

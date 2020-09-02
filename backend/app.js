@@ -1,21 +1,34 @@
 const express = require('express');
 const bodyParser= require('body-parser');
 const mongoose = require('mongoose');
-
-const app = express();
-
+const rateLimit = require('express-rate-limit');
+const helmet = require ('helmet');
+const xss = require('xss-clean')
 const path = require('path');
 
 const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
 
+require('dotenv').config(); 
 
+const app = express();
 
-mongoose.connect('mongodb+srv://zitoune05:zitoune05@cluster0.ocrqz.gcp.mongodb.net/Database?retryWrites=true&w=majority',
+const limiteur = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limite chaque IP à 3 requêtes par fenêtre
+});
+
+app.use(limiteur);
+
+mongoose.connect('mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASSWORD+'@cluster0.ocrqz.gcp.mongodb.net/Database?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
 .then(() => console.log('Connexion à MongoDB réussie !'))
 .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+
+app.use(xss());
+app.use(helmet());
 
 app.use((req, res, next) => {                                                        
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,7 +36,6 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
-
 
 app.use('/image', express.static(path.join(__dirname,'images')));
 app.use(bodyParser.json());                     //Transforme le corp de la requête en object Javascript utilisable 
