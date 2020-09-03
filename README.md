@@ -1,9 +1,8 @@
-## Piquante
+# So-Peckocko---Projet-6
 
-Le projet a été généré avec [Angular CLI](https://github.com/angular/angular-cli) version 7.0.2.
+Création de la partie backend du projet numéro 6 .
 
-Pour faire fonctionner le projet, vous devez installer node-sass à part.
-
-## Development server
-
-Démarrer `ng serve` pour avoir accès au serveur de développement. Rendez-vous sur `http://localhost:4200/`. L'application va se recharger automatiquement si vous modifiez un fichier source.
+Pour lancer l'application :
+  - npm install suivi de npm start sur le dossier frontend et backend.
+  - Modifier le fichier .env avec le pseudo et le mot de passe que je vous enverrez.
+  - Vous devriez pouvoir voir l'application en accédant à l'url http://localhost:4200
