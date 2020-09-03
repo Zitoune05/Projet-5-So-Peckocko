@@ -1,7 +1,7 @@
-const http = require('http');                           
-const app = require('./app');                          
+const http = require('http');                           // Package http de node             
+const app = require('./app');                           // Appelle de l'application 
 
-const normalizePort = val => {
+const normalizePort = val => {                          // fonction 
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -12,10 +12,10 @@ const normalizePort = val => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000'); // trouve un port valide au format numérique ou chaîne
 app.set('port', port);
 
-const errorHandler = error => {
+const errorHandler = error => {                         // fonction d'erreur 
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -37,8 +37,8 @@ const errorHandler = error => {
 
 const server = http.createServer(app);
 
-server.on('error', errorHandler);
-server.on('listening', () => {
+server.on('error', errorHandler);                       //si il y a une erreur au démarrage du serveur
+server.on('listening', () => {                          // Le serveur démarre
   const address = server.address();
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
   console.log('Listening on ' + bind);

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const sauceSchema = new mongoose.Schema({                    //On crée le schéma type d'une sauce
+const sauceSchema = new mongoose.Schema({                    // Schéma type d'une sauce
     userId : { type : String,required : true },
     name: { type : String, required : true},
     manufacturer: { type : String, required : true },
