@@ -26,9 +26,7 @@ mongoose.connect('mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASSWOR
 .then(() => console.log('Connexion à MongoDB réussie !'))
 .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-
 app.use(xss());
-app.use(helmet());
 
 app.use((req, res, next) => {                                                        
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -37,6 +35,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(helmet());
 app.use('/image', express.static(path.join(__dirname,'images')));
 app.use(bodyParser.json());                     //Transforme le corp de la requête en object Javascript utilisable 
 app.use('/api/auth' ,userRoutes);

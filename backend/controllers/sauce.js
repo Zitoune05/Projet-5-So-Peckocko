@@ -26,7 +26,7 @@ exports.createSauce = (req, res, next) => {
     .catch((error) => { res.status(500).json({error: error});});  
 };
   
-exports.getOneSauce= (req,res,next) => {
+exports.getOneSauce= (req,res,next) => {            // Charge les informations de la sauce selectionnée
     Sauce.findOne({
       _id: req.params.id
     }).then(
