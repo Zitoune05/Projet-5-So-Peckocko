@@ -1,4 +1,12 @@
-# So-Peckocko---Projet-6
+# projet 5 - Construire une API sécurisée pour une application d'avis gastronomiques
+
+# Compétences évaluées :
+
+-Implémenter un modèle logique de données conformément à la réglementation
+-Stocker des données de manière sécurisée
+-Mettre en œuvre des opérations CRUD de manière sécurisée
+
+
 
 Création de la partie backend du projet numéro 6 .
 
