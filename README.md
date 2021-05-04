@@ -8,7 +8,7 @@
 
 
 
-Création de la partie backend du projet numéro 6 .
+# Création de la partie backend
 
 Pour lancer l'application :
   - npm install suivi de npm start sur le dossier frontend et backend.
